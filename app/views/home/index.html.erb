@@ -1,19 +1,23 @@
-<h1>BUKKET LIST</h1>
 <% if user_signed_in? %>
-  <h3>Welcome, <%= current_user.first_name %></h3>
   <br />
-  <% current_user.buckets.each do |bucket| %>
-    <p><%= link_to bucket.name, bucket_path(bucket) %></p>
-    <% bucket.items.each do |item| %>
-      <p><%= item.name %><p>
-    <% end %>
-  <% end %>
-  <%= link_to 'New Bucket', new_bucket_path %>
-  <%= link_to 'All Buckets', buckets_path(@bucket) %>
-<% end %>
+  
+    <div class="row">
+      <% current_user.buckets.each do |bucket| %>
+        <div class="col s3">
+          <div class="card-panel light-blue darken-2">
+            <p><%= link_to bucket.name, bucket_path(bucket) %></p>
+              <ul>
+                <% bucket.items.each do |item| %>
+                <li><p><%= item.name %></p></li>
+                <% end %>
+              </ul>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
 <br />
-<% if user_signed_in? %>
-<%= link_to 'Logout', destroy_user_session_path, method: :delete %>
+
 <% else %>
 <%= link_to 'Login', new_user_session_path %>
 <%= link_to 'Sign Up', new_user_registration_path %>
